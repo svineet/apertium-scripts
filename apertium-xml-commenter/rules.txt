@@ -1,0 +1,3 @@
+hello<adj><n>:<n>
+hello world:
+accentuation<n>:<f>
