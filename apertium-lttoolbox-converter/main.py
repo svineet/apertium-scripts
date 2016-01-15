@@ -11,6 +11,10 @@ E_TAG_FORMAT = '<e><l>{}</l> <r>{}</r></e>'
 def get_tags(entry):
     tag_res = ""
     for t in entry.split(".")[1:]:
+        if not t:
+            print('Empty tag in ' + entry + ', ignoring.', file=sys.stderr)
+            continue
+
         tag_res += TAG_FORMAT.format(t)
 
     return tag_res, entry.split('.')[0].replace(' ', '<b/>')
@@ -20,6 +24,11 @@ def rules_to_xml(lines, ofile):
     olines = []
     for line in lines:
         if not line:
+            continue
+
+        if len(line.strip().split(':')) != 2:
+            print(line + ' does not conform to the format, skipping',
+                  file=sys.stderr)
             continue
 
         l, r = line.strip().split(':')
